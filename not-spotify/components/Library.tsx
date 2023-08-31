@@ -2,12 +2,21 @@
 
 import { TbPlaylist } from 'react-icons/tb'
 import { AiOutlinePlus } from 'react-icons/ai'
+
 import useAuthModal from '@/hooks/useAuthModal'
 import { useUser } from '@/hooks/useUser'
 import useUploadModal from '@/hooks/useUploadModal'
+import { Song } from '@/types'
+import MediaItem from './MediaItem'
 
-export const Library = () => {
-  
+interface LibraryProps {
+  songs: Song[];
+}
+
+export const Library: React.FC<LibraryProps> = ({
+  songs
+}) => {
+
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
   const { user } = useUser();
@@ -37,7 +46,7 @@ export const Library = () => {
             gap-x-2
           "
         >
-          <TbPlaylist className="text-neutral-400" size={26}/>
+          <TbPlaylist className="text-neutral-400" size={26} />
           <p
             className='
               text-neutral-400
@@ -48,7 +57,7 @@ export const Library = () => {
             Your Library
           </p>
         </div>
-        <AiOutlinePlus 
+        <AiOutlinePlus
           onClick={onClick}
           size={20}
           className="
@@ -67,7 +76,13 @@ export const Library = () => {
           px-3
         '
       >
-        List of Songs!
+        {songs.map((item) => (
+          <MediaItem
+            onClick={() => {}}
+            key={item.id}
+            data={item}
+          />
+        ))}
       </div>
     </div>
   )
